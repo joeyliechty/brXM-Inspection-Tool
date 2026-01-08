@@ -5,7 +5,7 @@ plugins {
 
 allprojects {
     group = "org.bloomreach.inspections"
-    version = "1.0.1"
+    version = property("version").toString()
 
     repositories {
         mavenCentral()

@@ -111,6 +111,54 @@ h3 {
     color: #34495e;
 }
 
+.filter-section {
+    padding: 30px 40px;
+    background: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.filter-title {
+    font-size: 1.1rem;
+    color: #34495e;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border: 2px solid #d0d0d0;
+    background: white;
+    color: #333;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    border-color: #667eea;
+    color: #667eea;
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.issue.hidden-issue {
+    display: none;
+}
+
 .data-table {
     width: 100%;
     border-collapse: collapse;
@@ -379,7 +427,7 @@ footer a:hover {
     <div class="container">
         <header>
             <h1>Bloomreach CMS Inspection Report</h1>
-            <p class="timestamp">Generated: 2025-12-10 13:24:52</p>
+            <p class="timestamp">Generated: 2026-01-08 12:00:32</p>
         </header>
         <section class="summary-cards">
             <div class="card total">
@@ -401,6 +449,16 @@ footer a:hover {
             <div class="card hint">
                 <div class="card-value">0</div>
                 <div class="card-label">Hints</div>
+            </div>
+        </section>
+        <section class="filter-section">
+            <h3 class="filter-title">Filter Issues by Severity</h3>
+            <div class="filter-controls">
+                <button class="filter-btn active" data-filter="all" onclick="filterByAllSeverities()">All</button>
+                <button class="filter-btn" data-filter="error" onclick="filterBySeverity('error')">Errors Only</button>
+                <button class="filter-btn" data-filter="warning" onclick="filterBySeverity('warning')">Warnings Only</button>
+                <button class="filter-btn" data-filter="info" onclick="filterBySeverity('info')">Info Only</button>
+                <button class="filter-btn" data-filter="hint" onclick="filterBySeverity('hint')">Hints Only</button>
             </div>
         </section>
         <section class="section">
@@ -506,7 +564,7 @@ footer a:hover {
             <div class="file-section">
                 <h3 class="file-path">../cibc/repository-data/site/src/main/resources/hcm-config/hst/configurations/cibcfcib/sitemap.yaml</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 2:0</span>
@@ -593,7 +651,7 @@ public void doBeforeRender(HstRequest request, HstResponse response) {
             <div class="file-section">
                 <h3 class="file-path">../cibc/cms/src/main/java/org/hippoecm/frontend/plugins/login/ConcurrentLoginSessionFilter.java</h3>
                 <div class="file-stats">6 issue(s)</div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 26:14</span>
@@ -627,7 +685,7 @@ public class ConcurrentLoginSessionFilter extends HippoDocument {
                         </div>
                     </details>
                 </div>
-                <div class="issue error">
+                <div class="issue error" data-severity="error">
                     <div class="issue-header">
                         <span class="severity-badge error">ERROR</span>
                         <span class="issue-location">Line 26:14</span>
@@ -667,7 +725,7 @@ public class ConcurrentLoginSessionFilter extends HippoDocument {
                         </div>
                     </details>
                 </div>
-                <div class="issue error">
+                <div class="issue error" data-severity="error">
                     <div class="issue-header">
                         <span class="severity-badge error">ERROR</span>
                         <span class="issue-location">Line 58:21</span>
@@ -717,7 +775,7 @@ try (Session session = repository.login()) {
                         </div>
                     </details>
                 </div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 81:25</span>
@@ -830,7 +888,7 @@ if (user.isLoggedIn()) {
                         </div>
                     </details>
                 </div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 83:47</span>
@@ -943,7 +1001,7 @@ if (user.isLoggedIn()) {
                         </div>
                     </details>
                 </div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 84:50</span>
@@ -1060,7 +1118,7 @@ if (user.isLoggedIn()) {
             <div class="file-section">
                 <h3 class="file-path">../cibc/cms/src/main/java/com/cibcfcib/security/Saml2CMSLoginFilter.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 17:14</span>
@@ -1098,7 +1156,7 @@ public class Saml2CMSLoginFilter extends HippoDocument {
             <div class="file-section">
                 <h3 class="file-path">../cibc/cms/src/main/java/com/cibcfcib/security/SaveUrlSAMLEntryPoint.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 22:34</span>
@@ -1215,7 +1273,7 @@ if (user.isLoggedIn()) {
             <div class="file-section">
                 <h3 class="file-path">../cibc/cms/src/main/java/com/cibcfcib/security/SavedUrlAuthenticationSuccessHandler.java</h3>
                 <div class="file-stats">3 issue(s)</div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 22:60</span>
@@ -1328,7 +1386,7 @@ if (user.isLoggedIn()) {
                         </div>
                     </details>
                 </div>
-                <div class="issue error">
+                <div class="issue error" data-severity="error">
                     <div class="issue-header">
                         <span class="severity-badge error">ERROR</span>
                         <span class="issue-location">Line 31:71</span>
@@ -1368,7 +1426,7 @@ See the main documentation for comprehensive examples and best practices.</pre>
                         </div>
                     </details>
                 </div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 32:34</span>
@@ -1485,7 +1543,7 @@ if (user.isLoggedIn()) {
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/HeroModuleComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 18:17</span>
@@ -1537,7 +1595,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/BlogPageComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 23:17</span>
@@ -1587,7 +1645,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/BaseLayoutComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 9:17</span>
@@ -1639,7 +1697,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/ProductListComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 28:17</span>
@@ -1691,7 +1749,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/HeroSliderComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 78:17</span>
@@ -1743,7 +1801,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/QuarterlyReportsComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 30:17</span>
@@ -1795,7 +1853,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/ContactComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 28:17</span>
@@ -1847,7 +1905,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/ExitModalComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 34:17</span>
@@ -1899,7 +1957,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/FraudAlertComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 25:17</span>
@@ -1951,7 +2009,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/AnnualReportsComponent.java</h3>
                 <div class="file-stats">3 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 32:17</span>
@@ -1999,7 +2057,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
                         </div>
                     </details>
                 </div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 44:26</span>
@@ -2081,7 +2139,7 @@ while (true) {
                         </div>
                     </details>
                 </div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 49:26</span>
@@ -2167,7 +2225,7 @@ while (true) {
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/BlogSearchComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 22:17</span>
@@ -2217,7 +2275,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/QuickNavComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 34:17</span>
@@ -2269,7 +2327,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/BlogCategoryComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 25:17</span>
@@ -2319,7 +2377,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/SearchComponent.java</h3>
                 <div class="file-stats">2 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 40:17</span>
@@ -2367,7 +2425,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
                         </div>
                     </details>
                 </div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 52:24</span>
@@ -2509,7 +2567,7 @@ Component parameters are configured in repository at:
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/BlogLandingComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 23:17</span>
@@ -2559,7 +2617,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/HeroComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 30:17</span>
@@ -2611,7 +2669,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/PrimaryNavComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 27:17</span>
@@ -2663,7 +2721,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/LocationsDetailComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 18:17</span>
@@ -2715,7 +2773,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/SeoComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 42:17</span>
@@ -2767,7 +2825,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/HeroSliderV2Component.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 25:17</span>
@@ -2819,7 +2877,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/ResolutionPortalForm.java</h3>
                 <div class="file-stats">11 issue(s)</div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 35:23</span>
@@ -2907,7 +2965,7 @@ public void doBeforeRender(...) {
                         </div>
                     </details>
                 </div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 37:28</span>
@@ -2995,7 +3053,7 @@ public void doBeforeRender(...) {
                         </div>
                     </details>
                 </div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 49:17</span>
@@ -3043,7 +3101,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
                         </div>
                     </details>
                 </div>
-                <div class="issue error">
+                <div class="issue error" data-severity="error">
                     <div class="issue-header">
                         <span class="severity-badge error">ERROR</span>
                         <span class="issue-location">Line 54:51</span>
@@ -3083,7 +3141,7 @@ See the main documentation for comprehensive examples and best practices.</pre>
                         </div>
                     </details>
                 </div>
-                <div class="issue error">
+                <div class="issue error" data-severity="error">
                     <div class="issue-header">
                         <span class="severity-badge error">ERROR</span>
                         <span class="issue-location">Line 57:45</span>
@@ -3123,7 +3181,7 @@ See the main documentation for comprehensive examples and best practices.</pre>
                         </div>
                     </details>
                 </div>
-                <div class="issue error">
+                <div class="issue error" data-severity="error">
                     <div class="issue-header">
                         <span class="severity-badge error">ERROR</span>
                         <span class="issue-location">Line 61:44</span>
@@ -3163,7 +3221,7 @@ See the main documentation for comprehensive examples and best practices.</pre>
                         </div>
                     </details>
                 </div>
-                <div class="issue error">
+                <div class="issue error" data-severity="error">
                     <div class="issue-header">
                         <span class="severity-badge error">ERROR</span>
                         <span class="issue-location">Line 62:47</span>
@@ -3203,7 +3261,7 @@ See the main documentation for comprehensive examples and best practices.</pre>
                         </div>
                     </details>
                 </div>
-                <div class="issue error">
+                <div class="issue error" data-severity="error">
                     <div class="issue-header">
                         <span class="severity-badge error">ERROR</span>
                         <span class="issue-location">Line 65:39</span>
@@ -3243,7 +3301,7 @@ See the main documentation for comprehensive examples and best practices.</pre>
                         </div>
                     </details>
                 </div>
-                <div class="issue error">
+                <div class="issue error" data-severity="error">
                     <div class="issue-header">
                         <span class="severity-badge error">ERROR</span>
                         <span class="issue-location">Line 66:46</span>
@@ -3283,7 +3341,7 @@ See the main documentation for comprehensive examples and best practices.</pre>
                         </div>
                     </details>
                 </div>
-                <div class="issue error">
+                <div class="issue error" data-severity="error">
                     <div class="issue-header">
                         <span class="severity-badge error">ERROR</span>
                         <span class="issue-location">Line 69:41</span>
@@ -3323,7 +3381,7 @@ See the main documentation for comprehensive examples and best practices.</pre>
                         </div>
                     </details>
                 </div>
-                <div class="issue error">
+                <div class="issue error" data-severity="error">
                     <div class="issue-header">
                         <span class="severity-badge error">ERROR</span>
                         <span class="issue-location">Line 70:41</span>
@@ -3367,7 +3425,7 @@ See the main documentation for comprehensive examples and best practices.</pre>
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/RatesRoutingComponent.java</h3>
                 <div class="file-stats">3 issue(s)</div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 21:17</span>
@@ -3413,7 +3471,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
                         </div>
                     </details>
                 </div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 21:17</span>
@@ -3461,7 +3519,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
                         </div>
                     </details>
                 </div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 22:31</span>
@@ -3603,7 +3661,7 @@ Component parameters are configured in repository at:
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/FooterComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 27:17</span>
@@ -3655,7 +3713,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/ResolutionPortalBannerComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 25:17</span>
@@ -3707,7 +3765,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/QuickLinksComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 20:17</span>
@@ -3759,7 +3817,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/BioComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 28:17</span>
@@ -3811,7 +3869,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/HeaderComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 54:17</span>
@@ -3863,7 +3921,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/ForeignExchangeComponent.java</h3>
                 <div class="file-stats">4 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 56:17</span>
@@ -3911,7 +3969,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
                         </div>
                     </details>
                 </div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 65:0</span>
@@ -3967,7 +4025,7 @@ HippoBean targetBean = baseBean.getBean(&quot;mynode&quot;);
                         </div>
                     </details>
                 </div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 91:31</span>
@@ -4105,7 +4163,7 @@ Component parameters are configured in repository at:
                         </div>
                     </details>
                 </div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 137:32</span>
@@ -4191,7 +4249,7 @@ while (true) {
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/BlogNavigationCardsComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 26:17</span>
@@ -4241,7 +4299,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/ExpandCollapseComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 17:17</span>
@@ -4293,7 +4351,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/LoanCalculatorComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 14:17</span>
@@ -4345,7 +4403,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/FaqComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 31:17</span>
@@ -4397,7 +4455,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/IconStripComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 19:17</span>
@@ -4449,7 +4507,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/BlogArchiveListComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 24:17</span>
@@ -4499,7 +4557,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/HeaderNavComponent.java</h3>
                 <div class="file-stats">2 issue(s)</div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 22:17</span>
@@ -4545,7 +4603,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
                         </div>
                     </details>
                 </div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 22:17</span>
@@ -4597,7 +4655,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/BaseComponent.java</h3>
                 <div class="file-stats">2 issue(s)</div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 25:26</span>
@@ -4685,7 +4743,7 @@ public void doBeforeRender(...) {
                         </div>
                     </details>
                 </div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 28:17</span>
@@ -4737,7 +4795,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/CardListComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 29:17</span>
@@ -4789,7 +4847,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/PageNotificationComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 25:17</span>
@@ -4841,7 +4899,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/SimpleContentComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 61:17</span>
@@ -4893,7 +4951,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/NewsListComponent.java</h3>
                 <div class="file-stats">3 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 40:17</span>
@@ -4941,7 +4999,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
                         </div>
                     </details>
                 </div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 46:28</span>
@@ -5079,7 +5137,7 @@ Component parameters are configured in repository at:
                         </div>
                     </details>
                 </div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 47:32</span>
@@ -5221,7 +5279,7 @@ Component parameters are configured in repository at:
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/CreditCardListComponent.java</h3>
                 <div class="file-stats">2 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 61:17</span>
@@ -5269,7 +5327,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
                         </div>
                     </details>
                 </div>
-                <div class="issue warning">
+                <div class="issue warning" data-severity="warning">
                     <div class="issue-header">
                         <span class="severity-badge warning">WARNING</span>
                         <span class="issue-location">Line 73:30</span>
@@ -5411,7 +5469,7 @@ Component parameters are configured in repository at:
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/TabsComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 17:17</span>
@@ -5463,7 +5521,7 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <div class="file-section">
                 <h3 class="file-path">../cibc/site/components/src/main/java/com/cibcfcib/components/ScheduleChargesComponent.java</h3>
                 <div class="file-stats">1 issue(s)</div>
-                <div class="issue info">
+                <div class="issue info" data-severity="info">
                     <div class="issue-header">
                         <span class="severity-badge info">INFO</span>
                         <span class="issue-location">Line 33:17</span>
@@ -5518,5 +5576,38 @@ public void doBeforeRender(HstRequest request, HstResponse response)
             <p class="footer-note">For more information, visit <a href="https://github.com/bloomreach">Bloomreach on GitHub</a></p>
         </footer>
     </div>
+    <script>
+        function filterBySeverity(severity) {
+            const issues = document.querySelectorAll('.issue');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update button states
+            buttons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-filter="${severity}"]`).classList.add('active');
+            
+            // Filter issues
+            issues.forEach(issue => {
+                if (issue.dataset.severity === severity) {
+                    issue.classList.remove('hidden-issue');
+                } else {
+                    issue.classList.add('hidden-issue');
+                }
+            });
+        }
+        
+        function filterByAllSeverities() {
+            const issues = document.querySelectorAll('.issue');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update button states
+            buttons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector('[data-filter="all"]').classList.add('active');
+            
+            // Show all issues
+            issues.forEach(issue => {
+                issue.classList.remove('hidden-issue');
+            });
+        }
+    </script>
 </body>
 </html>

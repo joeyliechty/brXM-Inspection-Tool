@@ -138,7 +138,14 @@ class AnalyzeCommand : Runnable {
                         progressCallback = { fileName ->
                             currentFile = fileName
                             pb.step()
-                            pb.extraMessage = fileName.takeLast(40)
+                            // Fixed-width filename display (50 chars) to prevent progress bar jumping
+                            val maxWidth = 50
+                            val display = if (fileName.length > maxWidth - 3) {
+                                "..." + fileName.takeLast(maxWidth - 3)
+                            } else {
+                                fileName.padEnd(maxWidth)
+                            }
+                            pb.extraMessage = display
                         }
                     )
                 }

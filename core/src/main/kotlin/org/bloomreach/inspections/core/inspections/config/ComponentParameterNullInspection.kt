@@ -163,11 +163,50 @@ private class ParameterVisitor(
                     isUsed = false
                 )
             } else {
-                // Inline usage without assignment - always a problem
+                // Inline usage without assignment - check if it's inside a null check condition
                 val parameterName = extractParameterName(call)
-                issues.add(createInlineParameterIssue(call, parameterName))
+
+                // Check if this call is inside an if condition that checks for null
+                if (!isInsideNullCheckCondition(call, parameterName)) {
+                    issues.add(createInlineParameterIssue(call, parameterName))
+                }
             }
         }
+    }
+
+    /**
+     * Check if a call is inside an if condition that checks the parameter for null
+     */
+    private fun isInsideNullCheckCondition(call: MethodCallExpr, parameterName: String): Boolean {
+        var current: com.github.javaparser.ast.Node? = call.parentNode.orElse(null)
+
+        while (current != null) {
+            if (current is IfStmt) {
+                // Check if the condition checks for null on this parameter
+                val condition = current.condition.toString()
+
+                // Pattern 1: parameter != null or parameter == null
+                if (condition.contains("getParameter(\"$parameterName\")") &&
+                    (condition.contains("!= null") || condition.contains("== null") ||
+                     condition.contains("null !=") || condition.contains("null =="))) {
+                    return true
+                }
+
+                // Pattern 2: object.getParameter("param") != null
+                val pattern = Regex("""[\w.]*\.getParameter\s*\(\s*"$parameterName"\s*\)\s*(!|==|!=)\s*null|null\s*(!|==|!=)\s*[\w.]*\.getParameter\s*\(\s*"$parameterName"\s*\)""")
+                if (pattern.containsMatchIn(condition)) {
+                    return true
+                }
+
+                // If we've reached an if block and the condition doesn't check this parameter,
+                // and the call is directly inside the then block, we're safe
+                // But if it's in a nested block, we need to keep checking
+            }
+
+            current = current.parentNode.orElse(null)
+        }
+
+        return false
     }
 
     private fun findVariableAssignment(node: com.github.javaparser.ast.Node): String? {

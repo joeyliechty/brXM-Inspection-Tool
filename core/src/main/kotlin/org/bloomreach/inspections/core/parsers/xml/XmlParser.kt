@@ -26,8 +26,7 @@ class XmlParser : Parser<Document> {
         isValidating = false
         isIgnoringComments = false
         isIgnoringElementContentWhitespace = false
-        // Disable DTD processing to prevent XXE attacks and FileNotFoundException
-        setFeature("http://apache.org/xml/features/disallow-doctype-decl", true)
+        // Allow DOCTYPE declarations but prevent XXE attacks by disabling external entity resolution
         setFeature("http://xml.org/sax/features/external-general-entities", false)
         setFeature("http://xml.org/sax/features/external-parameter-entities", false)
         setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false)
@@ -36,16 +35,21 @@ class XmlParser : Parser<Document> {
     }
 
     override fun parse(content: String): ParseResult<Document> {
+        // Skip parsing empty or whitespace-only files
+        if (content.isBlank()) {
+            return ParseResult.Failure(listOf(ParseError(0, 0, "File is empty or contains only whitespace")))
+        }
+
         return try {
             // Create a new DocumentBuilder for each parse call (thread-safe)
             val documentBuilder = documentBuilderFactory.newDocumentBuilder()
             val doc = documentBuilder.parse(InputSource(StringReader(content)))
             ParseResult.Success(doc)
         } catch (e: SAXException) {
-            logger.error("Failed to parse XML", e)
+            logger.debug("Failed to parse XML: {}", e.message)
             ParseResult.Failure(listOf(ParseError(0, 0, e.message ?: "XML parse error")))
         } catch (e: Exception) {
-            logger.error("Unexpected error parsing XML", e)
+            logger.debug("Unexpected error parsing XML: {}", e.message)
             ParseResult.Failure(listOf(ParseError(0, 0, "Unexpected error: ${e.message}")))
         }
     }

@@ -296,6 +296,63 @@ class ComponentParameterNullInspectionTest {
         assertEquals("title", issues[0].metadata["variableName"])
     }
 
+    @Test
+    fun `should not flag inline parameter usage inside null check condition`() {
+        val code = """
+            package com.example;
+
+            public class SitemapComponent extends BaseHstComponent {
+                public void doBeforeRender(HstRequest request, HstResponse response) {
+                    HstComponentConfiguration conf = getComponentConfiguration();
+                    if (conf.getParameter("includeInSitemap") != null) {
+                        return conf.getParameter("includeInSitemap").equals("on");
+                    }
+                }
+            }
+        """.trimIndent()
+
+        val issues = runInspection(code)
+
+        assertEquals(0, issues.size, "Should not flag inline usage inside null check condition")
+    }
+
+    @Test
+    fun `should not flag inline parameter usage with reversed null check`() {
+        val code = """
+            package com.example;
+
+            public class SitemapComponent extends BaseHstComponent {
+                public void doBeforeRender(HstRequest request, HstResponse response) {
+                    if (null != getParameter("value")) {
+                        String result = getParameter("value").toUpperCase();
+                    }
+                }
+            }
+        """.trimIndent()
+
+        val issues = runInspection(code)
+
+        assertEquals(0, issues.size, "Should not flag inline usage with reversed null check")
+    }
+
+    @Test
+    fun `should still flag inline parameter usage without null check`() {
+        val code = """
+            package com.example;
+
+            public class BadComponent extends BaseHstComponent {
+                public void doBeforeRender(HstRequest request, HstResponse response) {
+                    return getParameter("title").toUpperCase();
+                }
+            }
+        """.trimIndent()
+
+        val issues = runInspection(code)
+
+        assertEquals(1, issues.size, "Should still flag inline usage without null check")
+        assertTrue(issues[0].message.contains("inline"))
+    }
+
     // Helper methods
 
     private fun runInspection(code: String): List<InspectionIssue> {

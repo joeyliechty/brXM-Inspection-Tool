@@ -16,7 +16,12 @@ org.bloomreach.inspections.core.inspections.config.HstComponentLifecycleInspecti
 org.bloomreach.inspections.core.inspections.config.HstComponentThreadSafetyInspection
 org.bloomreach.inspections.core.inspections.config.HttpSessionUseInspection
 org.bloomreach.inspections.core.inspections.config.HstFilterInspection
+org.bloomreach.inspections.core.inspections.config.SystemOutCallsInspection
+org.bloomreach.inspections.core.inspections.config.StaticRequestSessionInspection
 org.bloomreach.inspections.core.inspections.security.HardcodedCredentialsInspection
 org.bloomreach.inspections.core.inspections.security.HardcodedPathsInspection
 org.bloomreach.inspections.core.inspections.security.RestAuthenticationInspection
+org.bloomreach.inspections.core.inspections.security.JcrParameterBindingInspection
+org.bloomreach.inspections.core.inspections.security.MissingJspEscapingInspection
 org.bloomreach.inspections.core.inspections.deployment.DockerConfigInspection
+org.bloomreach.inspections.core.inspections.deployment.ProjectVersionInspection

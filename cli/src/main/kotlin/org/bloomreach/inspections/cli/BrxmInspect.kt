@@ -18,7 +18,6 @@ import kotlin.system.exitProcess
     name = "brxm-inspect",
     description = ["Bloomreach CMS Static Analysis Tool"],
     mixinStandardHelpOptions = true,
-    version = ["1.0.1"],
     subcommands = [
         AnalyzeCommand::class,
         ListInspectionsCommand::class,
@@ -36,6 +35,27 @@ class BrxmInspect : Runnable {
  * Main function - entry point for the CLI
  */
 fun main(args: Array<String>) {
-    val exitCode = CommandLine(BrxmInspect()).execute(*args)
+    val cmd = CommandLine(BrxmInspect())
+    cmd.commandSpec.version(getVersion())
+    val exitCode = cmd.execute(*args)
     exitProcess(exitCode)
+}
+
+/**
+ * Reads the version from the generated version.properties file.
+ * The version is populated at build time from gradle.properties.
+ */
+fun getVersion(): String {
+    return try {
+        val resource = BrxmInspect::class.java.getResourceAsStream("/org/bloomreach/inspections/cli/version.properties")
+        if (resource != null) {
+            val props = java.util.Properties()
+            props.load(resource)
+            props.getProperty("version", "unknown")
+        } else {
+            "unknown"
+        }
+    } catch (e: Exception) {
+        "unknown"
+    }
 }
